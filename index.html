@@ -39,6 +39,8 @@
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/proj4leaflet/1.0.1/proj4leaflet.js"></script>
 	<script src="https://unpkg.com/vue"></script>
 
+	<script src="https://www.google.com/uds/modules/gviz/gviz-api.js"></script>
+
 
 	<script>
 		var app = new Vue({
@@ -48,11 +50,29 @@
 				longitude: 0,
 				value: 0,
 				coords: {},
-				remarks: ''
+				remarks: '測試'
 			},
 			methods: {
 				push: function () {
-					alert([this.latitude, this.longitude, this.value, '\n假的啦~我還沒寫資料庫'].join(', '))
+
+					let saveData =
+						`https://docs.google.com/forms/u/0/d/e/1FAIpQLSejeXyKVzYr3Bw_g3clh31wAiieRyb3ix7bWhRIj-Yxg22msw/formResponse?
+					entry.1415827768=${this.latitude}&
+					entry.647809729=${this.longitude}&
+					entry.225427529=${this.value}&
+					entry.143479352=${this.remarks}
+					&submit=Submit`;
+
+					fetch(saveData)
+						.then(function (response) {
+							return response.blob();
+						})
+						.then(function (myBlob) {
+							alert('成功!!')
+						});
+
+					alert('成功!!');
+					// alert([this.latitude, this.longitude, this.value, '\n假的啦~我還沒寫資料庫'].join(', '))
 
 				}
 			}
