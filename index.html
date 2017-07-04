@@ -9,11 +9,11 @@
 
 	<style>
 		#mapid {
-			height: 90VH;
+			height: 80VH;
 		}
 
 		#msg {
-			height: 10VH;
+			height: 20VH;
 		}
 
 		html,
@@ -28,9 +28,9 @@
 
 	<div id="mapid"></div>
 	<div id="msg">
-		緯度:{{ latitude }} 經度:{{ longitude }}<br>
-		流速:
-		<input v-model="value"><br>
+		緯度:{{ latitude }} 經度:{{ longitude }}<br> 流速:
+		<input v-model="value"><br> 備註:
+		<input v-model="remarks"><br>
 		<button v-on:click="push">送出</button>
 	</div>
 
@@ -47,13 +47,13 @@
 				latitude: 0,
 				longitude: 0,
 				value: 0,
-				coords: {}
+				coords: {},
+				remarks: ''
 			},
 			methods: {
 				push: function () {
 					alert([this.latitude, this.longitude, this.value, '\n假的啦~我還沒寫資料庫'].join(', '))
 
-					// this.message = this.message.split('').reverse().join('')
 				}
 			}
 		})
@@ -157,7 +157,12 @@
 			[120.658365, 24.08804]
 		]
 
-		valuepoint = valuepoint.map(i => L.marker([i[1], i[0]]).bindPopup(`緯度${i[1]}, 經度${i[0]}`))
+		valuepoint = valuepoint.map(i => L.circle([i[1], i[0]], {
+			color: 'red',
+			fillColor: '#f03',
+			fillOpacity: 0.5,
+			radius: 10
+		}).bindPopup(`緯度${i[1]}, 經度${i[0]}`))
 		L.layerGroup(valuepoint).addTo(mymap);
 
 		// mymap.locate({
