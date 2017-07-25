@@ -94,9 +94,19 @@
 			}
 		);
 
+    	var streets = L.tileLayer('https://mt{s}.google.com/vt/x={x}&y={y}&z={z}&hl=zh-TW', {
+    	        id : 'streets',
+    	        subdomains : "012",
+    	        attribution : 'Map data: &copy; Google'
+    	    });
+
+		
+
 		var mymap = L.map('mapid', {
-			crs: crs
+			// crs: crs
 		}).setView([24.0900, 120.6677], 11);
+
+		mymap.addLayer(streets);
 
 		L.tileLayer('./png/{z}/{y}_{x}.png', {
 			crs: crs

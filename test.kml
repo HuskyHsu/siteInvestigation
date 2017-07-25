@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<kml xmlns="http://www.opengis.net/kml/2.2">
+<Document id="root_doc">
+<Schema name="test" id="test">
+	<SimpleField name="id" type="string"></SimpleField>
+</Schema>
+<Folder><name>test</name>
+  <Placemark>
+	<Style><LineStyle><color>ff0000ff</color></LineStyle><PolyStyle><fill>0</fill></PolyStyle></Style>
+      <LineString><altitudeMode>clampToGround</altitudeMode><coordinates>120.167331354683,24.2476978689195 120.648688667395,24.6139479981564 120.878903034344,24.0122513572672 120.381849287522,23.63030479392 119.623188305531,23.0913938894714 120.339992129895,22.6675901684972 121.511992543453,22.7722330625649 121.747439055106,23.3791618481576</coordinates></LineString>
+  </Placemark>
+</Folder>
+</Document></kml>

@@ -1,0 +1,26 @@
+body {
+    padding: 0;
+    margin: 0;
+}
+
+html, body {
+    height: 100vh;
+    width: 100vw;
+}
+
+#map {
+    height: 70vh;
+    width: 100vw;
+}
+
+.gray {
+    filter: grayscale(100%);
+}
+
+.location {
+    filter: hue-rotate(90deg);
+}
+
+.field {
+    margin: 2px;
+}
