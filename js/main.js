@@ -15,7 +15,7 @@ var app = new Vue({
 
             let m = new Date();
             
-            this.fieldContent['Time'] = m.getFullYear() +"/"+ (m.getMonth()+1) +"/"+ m.getDate() + " " + m.getHours() + ":" + m.getMinutes() + ":" + m.getSeconds() + " GMT+0800"
+            this.fieldContent['調查時間'] = m.getFullYear() +"/"+ (m.getMonth()+1) +"/"+ m.getDate() + " " + m.getHours() + ":" + m.getMinutes() + ":" + m.getSeconds() + " GMT+0800"
              
             let queryStr = 'method=edit&' + this.fields.map((value, index) => {
 	            return encodeURIComponent(value.fieldName) + '=' + encodeURIComponent(this.fieldContent[value.fieldName])
@@ -109,7 +109,7 @@ function getExistingData() {
     }).then(function (response) {
 
         response.data.forEach((value, index) => {
-            response.data[index]['Time'] = new Date( value['Time'] )
+            response.data[index]['調查時間'] = new Date( value['調查時間'] )
         })
         
         app.ExistingData = response.data;

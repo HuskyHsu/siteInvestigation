@@ -18,15 +18,14 @@
          
             <input type="checkbox" v-model="fieldContent[field.fieldName]" v-if="field.fieldType == 'checkbox'">
             <input type="number" v-model="fieldContent[field.fieldName]" v-if="field.fieldType == 'number'">
-            <input type="text" v-model="fieldContent[field.fieldName]" v-if="field.fieldType == 'text' && field.fieldName !='Time'">
-            <input type="text" v-model="fieldContent[field.fieldName]" v-if="field.fieldType == 'text' && field.fieldName =='Time'" readonly>
-            
+            <input type="text" v-model="fieldContent[field.fieldName]" v-if="field.fieldType == 'text' && field.fieldName !='調查時間'">
+            <input type="text" v-model="fieldContent[field.fieldName]" v-if="field.fieldType == 'text' && field.fieldName =='調查時間'" readonly>
 
         </div>
 
         <button v-on:click="callupdate">刷新數據</button>
+        <button v-on:click="edit">修正此點資料</button>
         <button v-on:click="add">新增</button>
-        <button v-on:click="edit">修正此點</button>
           <!-- {{update}}   -->
 
     </div>
