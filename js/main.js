@@ -56,7 +56,7 @@ var app = new Vue({
                     .addTo(ExistingDatalayerGroup);
       
                 if (i["已調查"]) {
-                    point._icon.classList.add('gray');
+                    point._icon.classList.add('sepia');
                 }
 
                 function onPointClick() {

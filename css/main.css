@@ -17,6 +17,10 @@ html, body {
     filter: grayscale(100%);
 }
 
+.sepia {
+    filter: sepia(1);
+}
+
 .location {
     filter: hue-rotate(90deg);
 }

@@ -29,8 +29,10 @@ map.locate({setView: true, maxZoom: 16});
 function onLocationFound(e) {
     var radius = e.accuracy / 2;
 
-    var loction = L.marker(e.latlng).addTo(map);
-    loction._icon.classList.add('location');
+    // var loction = L.marker(e.latlng).addTo(map);
+    // loction._icon.classList.add('location');
+
+    L.circle(e.latlng, 10).addTo(map);
 
     L.circle(e.latlng, radius).addTo(map);
 }
