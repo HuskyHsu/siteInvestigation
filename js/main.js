@@ -18,7 +18,7 @@ if (spreadsheetsName == 'null'){
 let spreadsheets = `spreadsheetsID=${spreadsheetsID}&spreadsheetsName=${spreadsheetsName}`;
 
 if (errCount > 0){
-    window.location = window.location.hostname + window.location.pathname + '?' + spreadsheets;
+    window.location = 'https://' + window.location.hostname + window.location.pathname + '?' + spreadsheets;
 }
 
 // let URL = 'https://script.google.com/macros/s/AKfycbwcU5HW37VknYF1BK7BMVO47GQqR6Sw12IHrc9l2WkP95XNSdY/exec';
