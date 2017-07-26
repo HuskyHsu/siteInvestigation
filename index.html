@@ -1,224 +1,49 @@
 <!DOCTYPE html>
 <html>
-
 <head>
-	<title>野外踏勘用啦!</title>
-	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-
-	<link rel="stylesheet" href="https://unpkg.com/leaflet@1.0.3/dist/leaflet.css" />
-
-	<style>
-		#mapid {
-			height: 80VH;
-		}
-
-		#msg {
-			height: 20VH;
-		}
-
-		html,
-		body {
-			margin: 0
-		}
-	</style>
+<title>現場調查測試版</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.1.0/dist/leaflet.css"/>
+    <link rel="stylesheet" href="css/main.css"/>
 
 </head>
-
 <body>
 
-	<div id="mapid"></div>
-	<div id="msg">
-		緯度:{{ latitude }} 經度:{{ longitude }}<br> 流速:
-		<input v-model="value" type="number"><br> 備註:
-		<input v-model="remarks"><br>
-		<button v-on:click="push">送出</button>
-	</div>
+    <div id="map"></div>
+    <div id="app">
+    
+        <h4>表單輸入</h4>
+        <div v-for="field in fields" class="field">
 
-	<script src="https://unpkg.com/leaflet@1.0.3/dist/leaflet.js"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/proj4js/2.4.3/proj4.js"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/proj4leaflet/1.0.1/proj4leaflet.js"></script>
-	<script src="https://unpkg.com/vue"></script>
+            {{ field.fieldName }}：
+         
+            <input type="checkbox" v-model="fieldContent[field.fieldName]" v-if="field.fieldType == 'checkbox'">
+            <input type="number" v-model="fieldContent[field.fieldName]" v-if="field.fieldType == 'number'">
+            <input type="text" v-model="fieldContent[field.fieldName]" v-if="field.fieldType == 'text' && field.fieldName !='調查時間'">
+            <input type="text" v-model="fieldContent[field.fieldName]" v-if="field.fieldType == 'text' && field.fieldName =='調查時間'" readonly>
 
-	<script src="https://www.google.com/uds/modules/gviz/gviz-api.js"></script>
+        </div>
 
+        <button v-on:click="edit">修正此點資料</button><br>
 
-	<script>
-		var app = new Vue({
-			el: '#msg',
-			data: {
-				latitude: 0,
-				longitude: 0,
-				value: 0,
-				coords: {},
-				remarks: '測試'
-			},
-			methods: {
-				push: function () {
-
-					let saveData =
-						`https://docs.google.com/forms/u/0/d/e/1FAIpQLSejeXyKVzYr3Bw_g3clh31wAiieRyb3ix7bWhRIj-Yxg22msw/formResponse?
-					entry.1415827768=${this.latitude}&
-					entry.647809729=${this.longitude}&
-					entry.225427529=${this.value}&
-					entry.143479352=${this.remarks}
-					&submit=Submit`;
-
-					fetch(saveData)
-						.then(function (response) {
-							return response.blob();
-						})
-						.then(function (myBlob) {
-							alert('成功!!')
-						});
-
-					alert('成功!!');
-					// alert([this.latitude, this.longitude, this.value, '\n假的啦~我還沒寫資料庫'].join(', '))
-
-				}
-			}
-		})
-
-		//proj4.defs("urn:ogc:def:crs:EPSG::3826", "+proj=tmerc +lat_0=0 +lon_0=121 +k=0.9999 +x_0=250000 +y_0=0 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs");
-
-		var crs = new L.Proj.CRS('EPSG:4326',
-			'+proj=tmerc +lat_0=0 +lon_0=121 +k=0.9999 +x_0=250000 +y_0=0 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs', {
-				origin: [-42900, 2920000],
-				resolutions: [793.7515875031751, 264.5838625010584,
-					132.2919312505292, 66.1459656252646,
-					39.687579375158755, 26.458386250105836,
-					13.229193125052918, 6.614596562526459,
-					3.9687579375158752, 2.6458386250105836,
-					1.9843789687579376, 1.3229193125052918,
-					0.6614596562526459, 0.26458386250105836
-				]
-			}
-		);
-
-    	var streets = L.tileLayer('https://mt{s}.google.com/vt/x={x}&y={y}&z={z}&hl=zh-TW', {
-    	        id : 'streets',
-    	        subdomains : "012",
-    	        attribution : 'Map data: &copy; Google'
-    	    });
-
-		
-
-		var mymap = L.map('mapid', {
-			// crs: crs
-		}).setView([24.0900, 120.6677], 11);
-
-		mymap.addLayer(streets);
-
-		L.tileLayer('./png/{z}/{y}_{x}.png', {
-			crs: crs
-		}).addTo(mymap);
-
-		setInterval(function () {
-
-			navigator.geolocation.getCurrentPosition(function (position) {
-
-				app.latitude = position.coords.latitude;
-				app.longitude = position.coords.longitude;
-
-				L.circle({
-					lat: position.coords.latitude,
-					lng: position.coords.longitude
-				}, 10).addTo(mymap);
-
-				// console.log(position.coords.latitude, position.coords.longitude);
-				// L.marker({lat:24.0870,lng:120.6677}).addTo(mymap);
-
-				// L.circle({
-				// 	lat: 24.0870,
-				// 	lng: 120.6677
-				// }, 10).addTo(mymap);
-
-				// app.latitude = 24.0870;
-				// app.longitude = 120.6677;
-
-			});
-
-		}, 1000);
+        <label>新增點位時採用</label>
+        <input type="radio" id="GPS" value="GPS" v-model="picked">
+        <label for="GPS">GPS座標</label>
+        <input type="radio" id="center" value="center" v-model="picked">
+        <label for="center">地圖中心</label><br>
 
 
+        <button v-on:click="add">新增點位</button>
+          <!-- {{update}}   -->
 
-		let valuepoint = [
-			[120.672613, 24.088954],
-			[120.679883, 24.095587],
-			[120.677798, 24.094185],
-			[120.677551, 24.093952],
-			[120.67774, 24.093916],
-			[120.676902, 24.093287],
-			[120.676701, 24.093048],
-			[120.677671, 24.092775],
-			[120.67619, 24.091727],
-			[120.675957, 24.091494],
-			[120.675813, 24.091893],
-			[120.675942, 24.092276],
-			[120.675357, 24.091952],
-			[120.674633, 24.090195],
-			[120.673179, 24.088949],
-			[120.674382, 24.091496],
-			[120.674083, 24.091364],
-			[120.673447, 24.091004],
-			[120.673239, 24.090777],
-			[120.672279, 24.089754],
-			[120.673114, 24.088651],
-			[120.679536, 24.096249],
-			[120.672516, 24.088775],
-			[120.671429, 24.088677],
-			[120.671072, 24.08861],
-			[120.670994, 24.088503],
-			[120.669594, 24.088792],
-			[120.669543, 24.088667],
-			[120.66949, 24.088906],
-			[120.669276, 24.08872],
-			[120.667559, 24.08837],
-			[120.667501, 24.08822],
-			[120.666661, 24.088493],
-			[120.666472, 24.088523],
-			[120.664502, 24.088244],
-			[120.664333, 24.088166],
-			[120.663571, 24.087514],
-			[120.663311, 24.087227],
-			[120.662846, 24.086103],
-			[120.662971, 24.087883],
-			[120.66197, 24.087594],
-			[120.660512, 24.087794],
-			[120.658365, 24.08804]
-		]
+    </div>
 
-		valuepoint = valuepoint.map(i => L.circle([i[1], i[0]], {
-			color: 'red',
-			fillColor: '#f03',
-			fillOpacity: 0.5,
-			radius: 10
-		}).bindPopup(`緯度${i[1]}, 經度${i[0]}`))
-		L.layerGroup(valuepoint).addTo(mymap);
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="https://unpkg.com/vue"></script>
+    <script src="https://unpkg.com/leaflet@1.1.0/dist/leaflet.js"></script>
+    <script src="js/map.js"></script>
+    <script src="js/main.js"></script>
 
-		// mymap.locate({
-		// 	setView: true,
-		// 	maxZoom: 16,
-		// 	watch: true
-		// });
-
-		// function onLocationFound(e) {
-		// 	var radius = e.accuracy / 2;
-		// 	L.marker(e.latlng).addTo(mymap).bindPopup("You are within " + radius + " meters from this point").openPopup();
-		// 	L.circle(e.latlng, radius).addTo(mymap);
-
-		// 	console.log(e.latlng);
-		// }
-
-
-
-		// mymap.on('locationfound', onLocationFound);
-		// function onLocationError(e) {
-		// 	alert(e.message);
-		// }
-
-		// map.on('locationerror', onLocationError);
-	</script>
 
 </body>
-
 </html>

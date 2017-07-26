@@ -1,6 +1,25 @@
 let spreadsheetsID = encodeURIComponent(new URLSearchParams(window.location.search).get('spreadsheetsID'));
 let spreadsheetsName = encodeURIComponent(new URLSearchParams(window.location.search).get('spreadsheetsName'));
+
+let errCount = 0;
+
+if (spreadsheetsID == 'null'){
+    spreadsheetsID = prompt("請提供google算表ID", "1AvxWdDXf4xmV8sW9to9HspmcgsRoRUfhYRZks6-iEdE");
+    spreadsheetsID = encodeURIComponent(spreadsheetsID);
+    errCount += 1;
+}
+
+if (spreadsheetsName == 'null'){
+    spreadsheetsName = prompt("請提供工作表名稱", "工作表1");
+    spreadsheetsName = encodeURIComponent(spreadsheetsName);
+    errCount += 1;
+}
+
 let spreadsheets = `spreadsheetsID=${spreadsheetsID}&spreadsheetsName=${spreadsheetsName}`;
+
+if (errCount > 0){
+    window.location = window.location.hostname + window.location.pathname + '?' + spreadsheets;
+}
 
 // let URL = 'https://script.google.com/macros/s/AKfycbwcU5HW37VknYF1BK7BMVO47GQqR6Sw12IHrc9l2WkP95XNSdY/exec';
 let URL = 'https://script.google.com/macros/s/AKfycbwyLhi5JLkkmFaqCpKUDbysecLBCxzgY-YO8ONSkL0gEVjfcJM/exec';
