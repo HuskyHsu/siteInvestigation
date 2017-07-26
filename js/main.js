@@ -21,9 +21,7 @@ if (errCount > 0){
     window.location = window.location.pathname + '?' + spreadsheets;
 }
 
-// let URL = 'https://script.google.com/macros/s/AKfycbwcU5HW37VknYF1BK7BMVO47GQqR6Sw12IHrc9l2WkP95XNSdY/exec';
 let URL = 'https://script.google.com/macros/s/AKfycbwyLhi5JLkkmFaqCpKUDbysecLBCxzgY-YO8ONSkL0gEVjfcJM/exec';
-
 
 var app = new Vue({
     el: '#app',
@@ -98,9 +96,6 @@ var app = new Vue({
                 alert(response.data);
 			});
             
-        },
-        callupdate: function() {
-            getExistingData()
         }
     },
     computed: {
@@ -111,6 +106,11 @@ var app = new Vue({
             ExistingDatalayerGroup.clearLayers();
 
             var avgLonLat = [0, 0];
+
+            if (this.ExistingData.length == 0){
+                // map.panTo(this.GPSLocation);
+                return 0
+            }
 
             this.ExistingData.forEach(i => {
 

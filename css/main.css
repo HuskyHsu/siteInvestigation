@@ -52,6 +52,6 @@ div.leaflet-control > p {
     position: absolute;
     font-size: 32px;
     top: calc( 50% - 24px );
-    right: calc( 50% - 8px );
+    right: calc( 50% - 16px );
     z-index: 9999;
 }
