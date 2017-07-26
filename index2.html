@@ -12,6 +12,7 @@
     <div id="map"></div>
     <div id="app">
     
+        <h4>表單輸入</h4>
         <div v-for="field in fields" class="field">
 
             {{ field.fieldName }}：
@@ -23,9 +24,16 @@
 
         </div>
 
-        <button v-on:click="callupdate">刷新數據</button>
-        <button v-on:click="edit">修正此點資料</button>
-        <button v-on:click="add">新增</button>
+        <button v-on:click="edit">修正此點資料</button><br>
+
+        <label>新增點位時採用</label>
+        <input type="radio" id="GPS" value="GPS" v-model="picked">
+        <label for="GPS">GPS座標</label>
+        <input type="radio" id="center" value="center" v-model="picked">
+        <label for="center">地圖中心</label><br>
+
+
+        <button v-on:click="add">新增點位</button>
           <!-- {{update}}   -->
 
     </div>

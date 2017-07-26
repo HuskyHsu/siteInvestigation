@@ -1,6 +1,7 @@
 body {
     padding: 0;
     margin: 0;
+    font-family:'Microsoft JhengHei';
 }
 
 html, body {
@@ -26,5 +27,31 @@ html, body {
 }
 
 .field {
-    margin: 2px;
+     margin: 2px; 
+}
+
+.field input {
+    width: 10em;
+}
+
+
+div.leaflet-control > p {
+    background-color: white;
+    font-size: 0.75em;
+    padding: 0.2em;
+    margin: 0;
+}
+
+#app {
+    width: 100vw; 
+    max-height: 30vh;
+    overflow: auto;
+}
+
+.centerMarker {
+    position: absolute;
+    font-size: 32px;
+    top: calc( 50% - 24px );
+    right: calc( 50% - 8px );
+    z-index: 9999;
 }
