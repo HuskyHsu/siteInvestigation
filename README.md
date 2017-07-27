@@ -36,10 +36,9 @@
 
 ## 建立自己的網址
 
-> 替換綠字部分成自己的試算表ID與工作表名稱
+> 替換[]部分成自己的試算表ID與工作表名稱
 
-
-huskyhsu.github.io/siteInvestigation/index.html?<span style='color: #FF2D2D'>spreadsheetsID</span>=<span style='color:  #00BB00'>1AvxWdDXf4xmV8sW9to9HspmcgsRoRUfhYRZks6-iEdE</span>&<span style='color: #FF2D2D'>spreadsheetsName</span>=<span style='color: #00BB00'>工作表1</span>
+huskyhsu.github.io/siteInvestigation/index.html?spreadsheetsID=[google試算表ID]&spreadsheetsName=[工作表名稱]
 
 
 ## 實際畫面與功能
