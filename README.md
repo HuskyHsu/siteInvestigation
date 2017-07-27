@@ -49,8 +49,10 @@ https://huskyhsu.github.io/siteInvestigation/index.html?<span style='color: #FF2
 * 中央十字為地圖中心位置
 * 可修改或刪除既有資料(先點選地圖上的點，下方表格會自動更新數據)
 * 新增點位可選擇GPS座標位置或地圖中心
+* 點開點位後有Google導航連結可以使用
+* 地圖有google地圖與衛星雲圖兩種可以選擇
 
 ![](http://i.imgur.com/bn6pMZ7.jpg)
-![](http://i.imgur.com/cyfstp1.jpg)
+![](http://i.imgur.com/ChitptW.jpg)
 
 
