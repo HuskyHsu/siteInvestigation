@@ -21,24 +21,23 @@ let baseMaps = {
     "Google衛星影像": satellite
 };
 
-let manIcon = [
-    L.icon({
-        iconUrl: 'png/happy-man.png',
-        iconSize: [32, 32],
-        iconAnchor: [16, 30]
-    }),
-    L.icon({
-        iconUrl: 'png/man-exercising-with-arm-raised.png',
-        iconSize: [32, 32], 
-        iconAnchor: [16, 30]
-    }),
-    L.icon({
-        iconUrl: 'png/man-with-two-balloons.png',
+let manIconImg = ['exercising-woman.png',
+                  'happy-man.png',
+                  'man-exercising-with-arm-raised.png',
+                  'man-listening-to-music.png',
+                  'man-singing.png',
+                  'man-standing-up.png',
+                  'man-waving-arm.png',
+                  'man-with-two-balloons.png',
+                  'running-man.png']
+
+let manIcon = manIconImg.map(function (params) {
+    return L.icon({
+        iconUrl: 'png/smallPeople/' + params,
         iconSize: [32, 32],
         iconAnchor: [16, 30]
     })
-]
-
+})
 
 
 L.control.layers(baseMaps).addTo(map);
@@ -52,7 +51,7 @@ function onLocationFound(e) {
     // loction._icon.classList.add('location');
     // L.circle(e.latlng, 10).addTo(map);
     L.circle(e.latlng, radius).addTo(map);
-    L.marker(e.latlng, {icon: manIcon[parseInt((Math.random() * 3))]}).addTo(map);
+    L.marker(e.latlng, {icon: manIcon[parseInt((Math.random() * manIcon.length))]}).addTo(map);
 
     app.GPSLocation = e.latlng
     map.GPSLocation.textContent = `GPS定位：Lon:${e.latlng.lng.toFixed(6)}, Lat:${e.latlng.lat.toFixed(6)}`;
