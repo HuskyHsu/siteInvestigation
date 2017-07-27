@@ -7,6 +7,7 @@ body {
 html, body {
     height: 100vh;
     width: 100vw;
+    overflow-y: auto;
 }
 
 #map {
@@ -26,13 +27,14 @@ html, body {
     filter: hue-rotate(90deg);
 }
 
-.field {
+.fields {
      margin: 2px; 
 }
 
-.field input {
-    width: 10em;
-}
+ /* .fields input {
+    width: 70VW;
+}  */
+
 
 
 div.leaflet-control > p {
@@ -46,6 +48,7 @@ div.leaflet-control > p {
     width: 100vw; 
     max-height: 30vh;
     overflow: auto;
+    padding: 10px;
 }
 
 .centerMarker {
@@ -54,4 +57,8 @@ div.leaflet-control > p {
     top: calc( 50% - 24px );
     right: calc( 50% - 16px );
     z-index: 9999;
+}
+
+.leaflet-control-custom{
+    cursor: pointer;
 }

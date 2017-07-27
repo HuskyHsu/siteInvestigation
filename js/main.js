@@ -33,6 +33,7 @@ var app = new Vue({
         picked: 'GPS'
     },
     methods: {
+        //新增點位
         add: function() {
 
             let LatLng = {};
@@ -47,7 +48,11 @@ var app = new Vue({
 
             this.fieldContent['緯度'] = LatLng.lat;
             this.fieldContent['經度'] = LatLng.lng;
-            
+
+            let TWD97 = WGS84toTWD97(LatLng);
+            this.fieldContent['TWD97_X'] = TWD97.x;
+            this.fieldContent['TWD97_Y'] = TWD97.y;
+                        
             this.fieldContent['調查時間'] = m.getFullYear() +"/"+ (m.getMonth()+1) +"/"+ m.getDate() + " " + m.getHours() + ":" + m.getMinutes() + ":" + m.getSeconds() + " GMT+0800"
              
             let queryStr = `${spreadsheets}&method=PostAdd&` + this.fields.map((value, index) => {
@@ -73,12 +78,17 @@ var app = new Vue({
 			});
 
         },
+        //修正資料
         edit: function() {
 
             let m = new Date();
             
             this.fieldContent['調查時間'] = m.getFullYear() +"/"+ (m.getMonth()+1) +"/"+ m.getDate() + " " + m.getHours() + ":" + m.getMinutes() + ":" + m.getSeconds() + " GMT+0800"
-             
+            
+            let TWD97 = WGS84toTWD97({lng: this.fieldContent['經度'], lat: this.fieldContent['緯度']});
+            this.fieldContent['TWD97_X'] = TWD97.x;
+            this.fieldContent['TWD97_Y'] = TWD97.y;
+
             let queryStr = `${spreadsheets}&method=PostEdit&` + this.fields.map((value, index) => {
 	            return encodeURIComponent(value.fieldName) + '=' + encodeURIComponent(this.fieldContent[value.fieldName])
             }).join('&');
@@ -96,12 +106,33 @@ var app = new Vue({
                 alert(response.data);
 			});
             
+        },
+        //刪除此點
+        deleteThis: function() {
+           
+            let deleteID = this.fieldContent['編號'];
+            let queryStr = `${spreadsheets}&method=PostDelete&DeleteID=` + encodeURIComponent(deleteID)
+
+			//Axios
+			axios({
+                method:'post',
+                url: URL,
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+			    },
+                data: queryStr
+			}).then(function(response) {
+                getExistingData();
+                alert(response.data);
+			});
+
         }
     },
     computed: {
 
     },
     watch: {
+        //自動更新畫面
         ExistingData: function (params) {
             ExistingDatalayerGroup.clearLayers();
 
@@ -140,6 +171,7 @@ var app = new Vue({
     }
 })
 
+//取的欄位
 axios({
     method: 'get',
     url: `${URL}?${spreadsheets}&method=getFieldNames`,
@@ -165,7 +197,7 @@ axios({
 
 });
 
-
+//更新數據
 function getExistingData() {
     axios({
         method: 'get',
@@ -181,4 +213,16 @@ function getExistingData() {
         
         app.ExistingData = response.data;
     });
+}
+
+//座標轉換
+function WGS84toTWD97(params) {
+
+    let WGS84 = '+proj=longlat +ellps=WGS84 +datum=WGS84 +no_defs';
+    let TWD97 = "+proj=tmerc +lat_0=0 +lon_0=121 +k=0.9999 +x_0=250000 +y_0=0 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs";
+    
+    let newLoction = proj4(WGS84, TWD97, [params.lng, params.lat])
+    
+    return {x: newLoction[0].toFixed(2), y: newLoction[1].toFixed(2)}
+    
 }
