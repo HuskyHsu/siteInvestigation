@@ -146,7 +146,7 @@ var app = new Vue({
             this.ExistingData.forEach(i => {
 
                 let point = L.marker([i["緯度"], i['經度']])
-                    .bindPopup(`編號：${i["編號"]}<br> 經緯度：${i["經度"]}, ${i['緯度']}`)
+                    .bindPopup(`編號：${i["編號"]}`)
                     .on('click', onPointClick)
                     .addTo(ExistingDatalayerGroup)
                     .on('click', function clickZoom(e) {
