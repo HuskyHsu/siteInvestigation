@@ -39,9 +39,7 @@
 > 替換綠字部分成自己的試算表ID與工作表名稱
 
 <p>
-    https://huskyhsu.github.io/siteInvestigation/index.html?
-    <span style='color: #FF2D2D'>spreadsheetsID</span>=<span style='color:  #00BB00'>1AvxWdDXf4xmV8sW9to9HspmcgsRoRUfhYRZks6-iEdE</span>&
-    <span style='color: #FF2D2D'>spreadsheetsName</span>=<span style='color: #00BB00'>工作表1</span>
+    huskyhsu.github.io/siteInvestigation/index.html?<span style='color: #FF2D2D'>spreadsheetsID</span>=<span style='color:  #00BB00'>1AvxWdDXf4xmV8sW9to9HspmcgsRoRUfhYRZks6-iEdE</span>&<span style='color: #FF2D2D'>spreadsheetsName</span>=<span style='color: #00BB00'>工作表1</span>
 </p>
 
 ## 實際畫面與功能
