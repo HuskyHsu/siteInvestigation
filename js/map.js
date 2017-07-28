@@ -34,8 +34,11 @@ let manIconImg = ['exercising-woman.png',
 let manIcon = manIconImg.map(function (params) {
     return L.icon({
         iconUrl: 'png/smallPeople/' + params,
+        // shadowUrl: 'png/compass.png',
         iconSize: [32, 32],
-        iconAnchor: [16, 30]
+        iconAnchor: [16, 30],
+        // shadowSize:   [44, 44],
+        // shadowAnchor: [22, 40],
     })
 })
 
@@ -52,36 +55,6 @@ function onLocationFound(e) {
     // L.circle(e.latlng, 10).addTo(map);
     L.circle(e.latlng, radius).addTo(map);
     let men = L.marker(e.latlng, {icon: manIcon[parseInt((Math.random() * manIcon.length))]}).addTo(map);
-
-
-        if(window.DeviceOrientationEvent) {
-        
-            window.addEventListener('deviceorientation', function(event) {
-                let alpha;
-                let webkitAlpha;
-                //     判斷是否為 iOS 裝置
-                if(event.webkitCompassHeading) {
-                  alpha = event.webkitCompassHeading; // iOS 裝置必須使用 event.webkitCompassHeading
-                  men._icon.style.WebkitTransform = men._icon.style.WebkitTransform + ' rotate(-' + alpha + 'deg)';
-                }
-                else {
-                  alpha = event.alpha;
-                  webkitAlpha = alpha;
-                  if(!window.chrome) {
-                    webkitAlpha = alpha - 270;
-                  }
-                    men._icon.style.Transform = men._icon.style.Transform + ' rotate(' + alpha + 'deg)';
-                    men._icon.style.WebkitTransform = men._icon.style.WebkitTransform + ' rotate('+ webkitAlpha + 'deg)';
-                    men._icon.style.MozTransform = men._icon.style.MozTransform + ' rotate(-' + alpha + 'deg)'; 
-                }
-            
-
-
-            }, false);
-        }else{
-
-        }
-
 
 
 
@@ -142,47 +115,50 @@ let Update = L.Control.extend({
 });
 map.addControl(new Update());
 
-// let Compass = L.Control.extend({
+let Compass = L.Control.extend({
 
-//     options: {position: 'topright'},
+    options: {position: 'topright'},
 
-//     onAdd: function (map) {
-//         let compass = L.DomUtil.create('div', 'compass leaflet-bar leaflet-control leaflet-control-custom');
+    onAdd: function (map) {
+        let compass = L.DomUtil.create('div', 'compass leaflet-bar leaflet-control leaflet-control-custom');
 
-//         compass.style.backgroundColor = 'white';
-//         compass.style.backgroundImage = "url(png/compass.png)";
-//         compass.style.backgroundSize = "40px 40px";
-//         compass.style.width = '44px';
-//         compass.style.height = '44px';
+        compass.style.backgroundColor = 'white';
+        compass.style.backgroundImage = "url(png/compass.png)";
+        compass.style.backgroundSize = "40px 40px";
+        compass.style.width = '44px';
+        compass.style.height = '44px';
 
-//         if(window.DeviceOrientationEvent) {
+        if(window.DeviceOrientationEvent) {
         
-//           window.addEventListener('deviceorientation', function(event) {
-//                 let alpha;
-//                 //     判斷是否為 iOS 裝置
-//                 if(event.webkitCompassHeading) {
-//                   alpha = event.webkitCompassHeading; // iOS 裝置必須使用 event.webkitCompassHeading
-//                   compass.style.WebkitTransform = 'rotate(-' + alpha + 'deg)';
-//                 }
-//                 else {
-//                   alpha = event.alpha;
-//                   alpha = alpha - 90;
-//                   if(!window.chrome) {
-//                     alpha = alpha - 90;
-//                   }
-//                 }
-            
-//                 compass.style.Transform = 'rotate(' + alpha + 'deg)';
+          window.addEventListener('deviceorientation', function(event) {
+            let alpha;
+            let webkitAlpha;
+            //     判斷是否為 iOS 裝置
+            if(event.webkitCompassHeading) {
+              alpha = event.webkitCompassHeading; // iOS 裝置必須使用 event.webkitCompassHeading
+              compass.style.WebkitTransform = 'rotate(-' + alpha + 'deg)';
+              show.innerHTML = alpha;
+            }
+            else {
+              alpha = event.alpha;
+              webkitAlpha = alpha;
+              if(!window.chrome) {
+                webkitAlpha = alpha-270;
+              }
+            }
 
-//               }, false);
-//         }else{
-//           document.querySelector('body').innerHTML = '你的瀏覽器不支援喔';
-//         }
+            compass.style.Transform = 'rotate(' + alpha + 'deg)';
+            compass.style.WebkitTransform = 'rotate('+ webkitAlpha + 'deg)';
+            compass.style.MozTransform = 'rotate(-' + alpha + 'deg)'; 
+            }, false);
+        }else{
+          document.querySelector('body').innerHTML = '你的瀏覽器不支援喔';
+        }
 
-//         return compass;
-//     }
-// });
-// map.addControl(new Compass());
+        return compass;
+    }
+});
+map.addControl(new Compass());
 
 map.on("moveend", function () {
     map.mapCenterLocation.textContent = `地圖中心：Lon:${map.getCenter().lng.toFixed(6)}, Lat:${map.getCenter().lat.toFixed(6)}`;
