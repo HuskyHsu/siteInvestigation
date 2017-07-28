@@ -121,3 +121,10 @@ div.leaflet-control > p {
 .inputfile-2 + label:hover {
 		border-color: #00d1b2;
 }
+
+/* #compass{
+  background-size:cover;
+  transform-origin:center center;
+  -moz-transform-origin:center center;
+  -webkit-transform-origin:center center;
+} */
