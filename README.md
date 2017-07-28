@@ -9,13 +9,14 @@
 3. 資料連動服務
 4. 區分調查完成與否
 5. 定位可由GPS或是地圖中心做選取
+6. 上傳照片至雲端
 
 ## google試算表建立說明
 
 ### 固定欄位
-|編號|經度|緯度|TWD97_X|TWD97_Y|調查時間|已調查|
-|---|---|---|---|---|---|---|
-|number|text|text|text|text|text|checkbox|
+|編號|經度|緯度|TWD97_X|TWD97_Y|調查時間|已調查|照片名稱|
+|---|---|---|---|---|---|---|---|
+|number|text|text|text|text|text|checkbox|file|
 
 ### 自訂欄位
 欄位名稱文字可自訂
@@ -33,12 +34,13 @@
 |---|---|---|
 |google試算表ID|spreadsheetsID|1AvxWdDXf4xmV8sW9to9HspmcgsRoRUfhYRZks6-iEdE|
 |工作表名稱|spreadsheetsName|工作表1|
+|google drive資料夾ID|driveFolderID|0BzccTlxkvzijX3hpcW10N3BhYUE|
 
 ## 建立自己的網址
 
 > 替換[]部分成自己的試算表ID與工作表名稱
 
-huskyhsu.github.io/siteInvestigation/index.html?spreadsheetsID=[google試算表ID]&spreadsheetsName=[工作表名稱]
+huskyhsu.github.io/siteInvestigation/index.html?spreadsheetsID=[google試算表ID]&spreadsheetsName=[工作表名稱]&driveFolderID=[0BzccTlxkvzijX3hpcW10N3BhYUE]
 
 
 ## 實際畫面與功能
@@ -51,8 +53,8 @@ huskyhsu.github.io/siteInvestigation/index.html?spreadsheetsID=[google試算表I
 * 新增點位可選擇GPS座標位置或地圖中心
 * 點開點位後有Google導航連結可以使用
 * 地圖有google地圖與衛星雲圖兩種可以選擇
+* 可上傳照片
 
-![](http://i.imgur.com/bn6pMZ7.jpg)
-![](http://i.imgur.com/ChitptW.jpg)
+![](http://i.imgur.com/gYi17Wo.jpg)
 
 
