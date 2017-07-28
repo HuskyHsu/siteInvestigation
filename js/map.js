@@ -142,7 +142,7 @@ let Compass = L.Control.extend({
             else {
               alpha = event.alpha;
               webkitAlpha = alpha;
-              if(!window.chrome) {
+              if(window.chrome) {
                 webkitAlpha = alpha;
               }
             }
