@@ -98,7 +98,30 @@ function PostEdit(sheet1, para) {
   var rowLength = sheet1.getLastRow() - 2; // 列數
   var fieldNames = sheet1.getRange(1, 1, 1, columnLength).getValues()[0];
   var allID = sheet1.getRange(3, 1, rowLength, 1).getValues();
+  
+  //檔案轉換
+  var file = para['照片名稱'].split("&")
+  if (file.length > 1) {
+    var driveFolderID = file[0].replace('driveFolderID=', '')
+    var fileName = file[1].replace('fileName=', '')
+    var fileBase64Code = file[2].replace('fileBase64Code=', '')
+    para['照片名稱'] = fileName;
     
+    //上傳檔案
+    var data = Utilities.base64Decode(fileBase64Code, Utilities.Charset.UTF_8);
+    var blob = Utilities.newBlob(data, MimeType.JPEG, fileName);
+    var thisFolder = DriveApp.getFolderById(driveFolderID);
+    thisFolder.createFile(blob);
+  } else {
+    para['照片名稱'] = "";
+  }
+  
+
+  
+  //時間修正
+  var m = new Date(para['調查時間']);
+  para['調查時間'] = m.getFullYear() +"/"+ (m.getMonth()+1) +"/"+ m.getDate() + " " + m.getHours() + ":" + m.getMinutes() + ":" + m.getSeconds();
+  
   var values = [
     fieldNames.map(function(value, index){
       return para[value]
@@ -115,9 +138,9 @@ function PostEdit(sheet1, para) {
     }
   }
   
-  var m = new Date(values[0][5]);
-
-  values[0][5] = m.getFullYear() +"/"+ (m.getMonth()+1) +"/"+ m.getDate() + " " + m.getHours() + ":" + m.getMinutes() + ":" + m.getSeconds();
+  var getOldFileName = sheet1.getRange(which, 8).getValue();
+  values[0][7] = getOldFileName + (values[0][7] == "" ? "" : ';' + values[0][7]);
+      
   var range = sheet1.getRange(which, 1, 1, columnLength);  
   range.setValues(values);
     
