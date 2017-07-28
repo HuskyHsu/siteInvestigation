@@ -27,7 +27,9 @@
 
 ### 如下圖所示
 ![範例](http://i.imgur.com/osRXEID.png)
+![範例](http://i.imgur.com/Ro7juKJ.png)
 [google表單連結在此(測試)](https://docs.google.com/spreadsheets/d/1AvxWdDXf4xmV8sW9to9HspmcgsRoRUfhYRZks6-iEdE/edit#gid=0)
+[google雲端硬碟(測試)](https://drive.google.com/drive/folders/0BzccTlxkvzijX3hpcW10N3BhYUE)
 
 ### 取得變數名稱(範例)
 |名稱|變數|值|
