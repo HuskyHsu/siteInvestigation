@@ -143,13 +143,13 @@ let Compass = L.Control.extend({
               alpha = event.alpha;
               webkitAlpha = alpha;
               if(!window.chrome) {
-                webkitAlpha = alpha + 90;
+                webkitAlpha = alpha;
               }
             }
 
             compass.style.Transform = 'rotate(' + alpha + 'deg)';
-            compass.style.WebkitTransform = 'rotate('+ webkitAlpha + 'deg)';
-            compass.style.MozTransform = 'rotate(-' + alpha + 'deg)'; 
+            compass.style.WebkitTransform = 'rotate(-'+ webkitAlpha + 'deg)';
+            compass.style.MozTransform = 'rotate(-' + alpha + 'deg)';
             }, false);
         }else{
           document.querySelector('body').innerHTML = '你的瀏覽器不支援喔';
