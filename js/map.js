@@ -51,10 +51,43 @@ function onLocationFound(e) {
     // loction._icon.classList.add('location');
     // L.circle(e.latlng, 10).addTo(map);
     L.circle(e.latlng, radius).addTo(map);
-    L.marker(e.latlng, {icon: manIcon[parseInt((Math.random() * manIcon.length))]}).addTo(map);
+    let men = L.marker(e.latlng, {icon: manIcon[parseInt((Math.random() * manIcon.length))]}).addTo(map);
+
+
+        if(window.DeviceOrientationEvent) {
+        
+          window.addEventListener('deviceorientation', function(event) {
+                let alpha;
+                //     判斷是否為 iOS 裝置
+                if(event.webkitCompassHeading) {
+                  alpha = event.webkitCompassHeading; // iOS 裝置必須使用 event.webkitCompassHeading
+                  men._icon.style.WebkitTransform = men._icon.style.WebkitTransform + ' rotate(-' + alpha + 'deg)';
+                }
+                else {
+                  alpha = event.alpha;
+                  webkitAlpha = alpha - 90;
+                  if(!window.chrome) {
+                    webkitAlpha = alpha - 90;
+                  }
+                }
+            
+                men._icon.style.Transform = men._icon.style.Transform + ' rotate(' + alpha + 'deg)';
+                men._icon.style.WebkitTransform = men._icon.style.WebkitTransform + ' rotate('+ webkitAlpha + 'deg)';
+                men._icon.style.MozTransform = men._icon.style.MozTransform + ' rotate(-' + alpha + 'deg)'; 
+
+              }, false);
+        }else{
+
+        }
+
+
+
+
 
     app.GPSLocation = e.latlng
     map.GPSLocation.textContent = `GPS定位：Lon:${e.latlng.lng.toFixed(6)}, Lat:${e.latlng.lat.toFixed(6)}`;
+
+    
 }
 
 map.on('locationfound', onLocationFound);

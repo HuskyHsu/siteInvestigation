@@ -122,9 +122,15 @@ div.leaflet-control > p {
 		border-color: #00d1b2;
 }
 
+
+.leaflet-marker-icon {
+  transform-origin: 50% 100%;
+  -moz-transform-origin: 50% 100%;
+  -webkit-transform-origin: 50% 100%;
+}
+
+
 /* #compass{
   background-size:cover;
-  transform-origin:center center;
-  -moz-transform-origin:center center;
-  -webkit-transform-origin:center center;
+
 } */
