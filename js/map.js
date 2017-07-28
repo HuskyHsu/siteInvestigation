@@ -58,6 +58,7 @@ function onLocationFound(e) {
         
           window.addEventListener('deviceorientation', function(event) {
                 let alpha;
+                let webkitAlpha;
                 //     判斷是否為 iOS 裝置
                 if(event.webkitCompassHeading) {
                   alpha = event.webkitCompassHeading; // iOS 裝置必須使用 event.webkitCompassHeading
@@ -65,7 +66,7 @@ function onLocationFound(e) {
                 }
                 else {
                   alpha = event.alpha;
-                  let webkitAlpha = alpha;
+                  webkitAlpha = alpha;
                   if(!window.chrome) {
                     webkitAlpha = alpha - 270;
                   }
