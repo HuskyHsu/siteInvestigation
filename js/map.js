@@ -56,7 +56,7 @@ function onLocationFound(e) {
 
         if(window.DeviceOrientationEvent) {
         
-          window.addEventListener('deviceorientation', function(event) {
+            window.addEventListener('deviceorientation', function(event) {
                 let alpha;
                 let webkitAlpha;
                 //     判斷是否為 iOS 裝置
@@ -70,13 +70,14 @@ function onLocationFound(e) {
                   if(!window.chrome) {
                     webkitAlpha = alpha - 270;
                   }
+                    men._icon.style.Transform = men._icon.style.Transform + ' rotate(' + alpha + 'deg)';
+                    men._icon.style.WebkitTransform = men._icon.style.WebkitTransform + ' rotate('+ webkitAlpha + 'deg)';
+                    men._icon.style.MozTransform = men._icon.style.MozTransform + ' rotate(-' + alpha + 'deg)'; 
                 }
             
-                men._icon.style.Transform = men._icon.style.Transform + ' rotate(' + alpha + 'deg)';
-                men._icon.style.WebkitTransform = men._icon.style.WebkitTransform + ' rotate('+ webkitAlpha + 'deg)';
-                men._icon.style.MozTransform = men._icon.style.MozTransform + ' rotate(-' + alpha + 'deg)'; 
 
-              }, false);
+
+            }, false);
         }else{
 
         }
