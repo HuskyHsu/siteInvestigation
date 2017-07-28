@@ -123,7 +123,7 @@ let Compass = L.Control.extend({
         let compass = L.DomUtil.create('div', 'compass leaflet-bar leaflet-control leaflet-control-custom');
 
         compass.style.backgroundColor = 'white';
-        compass.style.backgroundImage = "url(png/smartphone-with-wireless-internet.png)";
+        compass.style.backgroundImage = "url(png/compass.png)";
         compass.style.backgroundSize = "40px 40px";
         compass.style.width = '44px';
         compass.style.height = '44px';
