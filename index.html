@@ -41,26 +41,35 @@
         <div v-for="field in fields" class="fields">
 
             <div class="field is-horizontal">
-              <div class="field-label is-small">
-                <label class="label">{{ field.fieldName }}</label>
-              </div>
-              <div class="field-body">
-                <div class="field">
-                  <div class="control">
-                    <!-- <input class="input" type="text" placeholder="Normal sized input"> -->
-                    <label class="checkbox is-small" v-if="field.fieldType == 'checkbox'">
-                      <input type="checkbox" v-model="fieldContent[field.fieldName]">
-                      調查過打勾
-                    </label>
-                    <!-- <input class="input is-small" type="checkbox" v-model="fieldContent[field.fieldName]" v-if="field.fieldType == 'checkbox'"> -->
-                    <input class="input is-small" type="number" v-model="fieldContent[field.fieldName]" v-if="field.fieldType == 'number'">
-                    <input class="input is-small" type="text" v-model="fieldContent[field.fieldName]" v-if="field.fieldType == 'text' && field.fieldName !='調查時間'">
-                    <input class="input is-small" type="text" v-model="fieldContent[field.fieldName]" v-if="field.fieldType == 'text' && field.fieldName =='調查時間'" readonly>
-                  </div>
+                <div class="field-label is-small">
+                    <label class="label">{{ field.fieldName }}</label>
                 </div>
-              </div>
-            </div>
+                <div class="field-body">
+                  <div class="field">
+                        <div class="control">
+                      <!-- <input class="input" type="text" placeholder="Normal sized input"> -->
+                            <label class="checkbox is-small" v-if="field.fieldType == 'checkbox'">
+                                <input type="checkbox" v-model="fieldContent[field.fieldName]">
+                                調查過打勾
+                            </label>
+                            <!-- <input class="input is-small" type="checkbox" v-model="fieldContent[field.fieldName]" v-if="field.fieldType == 'checkbox'"> -->
+                            <input class="input is-small" type="number" v-model="fieldContent[field.fieldName]" v-if="field.fieldType == 'number'">
+                            <input class="input is-small" type="text" v-model="fieldContent[field.fieldName]" v-if="field.fieldType == 'text' && field.fieldName !='調查時間'">
+                            <input class="input is-small" type="text" v-model="fieldContent[field.fieldName]" v-if="field.fieldType == 'text' && field.fieldName =='調查時間'" readonly>
 
+                            <!-- <input class="input is-small" type="file" v-on:change="fileChange" v-if="field.fieldType == 'file'" accept="image/*"> -->
+       
+                            <input type="file" v-on:change="fileChange" class="inputfile inputfile-2" id="file" v-if="field.fieldType == 'file'">
+                            <label for="file" v-if="field.fieldType == 'file'"><span>{{ fileName }}</span></label>
+
+                        </div>
+                    </div>
+
+                </div>
+
+
+
+            </div>
         </div>
 
         <div class="field is-horizontal">
@@ -71,15 +80,19 @@
                 <div class="field">
                     <div class="control">
                         <a class="button is-info is-outlined" v-on:click="edit">修正此點資料</a>
+                        <a class="button is-info is-outlined" v-on:click="updateLocation">取得此點新座標</a>
                         <a class="button is-danger is-outlined" v-on:click="deleteThis">刪除此點</a>
                     </div>
                 </div>
             </div>
         </div>
 
+
+        
+
         <div class="field is-horizontal">
             <div class="field-label is-small">
-                <label class="label">新增點位時採用</label>
+                <label class="label">座標取得來源</label>
             </div>
             <div class="field-body">
                 <div class="field">

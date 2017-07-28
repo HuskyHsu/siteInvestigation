@@ -1,5 +1,6 @@
 let spreadsheetsID = encodeURIComponent(new URLSearchParams(window.location.search).get('spreadsheetsID'));
 let spreadsheetsName = encodeURIComponent(new URLSearchParams(window.location.search).get('spreadsheetsName'));
+let driveFolderID = encodeURIComponent(new URLSearchParams(window.location.search).get('driveFolderID'));
 
 let errCount = 0;
 
@@ -15,7 +16,13 @@ if (spreadsheetsName == 'null'){
     errCount += 1;
 }
 
-let spreadsheets = `spreadsheetsID=${spreadsheetsID}&spreadsheetsName=${spreadsheetsName}`;
+if (driveFolderID == 'null'){
+    driveFolderID = prompt("請提供Google drive ID", "0BzccTlxkvzijX3hpcW10N3BhYUE");
+    driveFolderID = encodeURIComponent(driveFolderID);
+    errCount += 1;
+}
+
+let spreadsheets = `spreadsheetsID=${spreadsheetsID}&spreadsheetsName=${spreadsheetsName}&driveFolderID=${driveFolderID}`;
 
 if (errCount > 0){
     window.location = window.location.pathname + '?' + spreadsheets;
@@ -107,6 +114,23 @@ var app = new Vue({
 			});
             
         },
+        //修正座標
+        updateLocation: function () {
+            let LatLng = {};
+            if (this.picked == 'GPS'){
+                LatLng = this.GPSLocation;
+            }
+            else {
+                LatLng = map.getCenter();
+            }
+
+            this.fieldContent['緯度'] = LatLng.lat;
+            this.fieldContent['經度'] = LatLng.lng;
+
+            let TWD97 = WGS84toTWD97(LatLng);
+            this.fieldContent['TWD97_X'] = TWD97.x;
+            this.fieldContent['TWD97_Y'] = TWD97.y;
+        },
         //刪除此點
         deleteThis: function() {
            
@@ -126,10 +150,27 @@ var app = new Vue({
                 alert(response.data);
 			});
 
+        },
+        //檔案變更
+        fileChange: function (e) {
+            let file = e.target.files || e.dataTransfer.files;
+            let fileName = file[0].name;
+            let fileType = file[0].type;
+            let fr = new FileReader();
+
+            fr.onload = (e) => {
+                let fileBase64Code = e.target.result.replace(/^.*,/, '')
+                this.fieldContent['照片名稱'] = `driveFolderID=${driveFolderID}&fileName=${fileName}&fileBase64Code=${fileBase64Code}`
+                
+            }
+            fr.readAsDataURL(file[0]);
         }
     },
     computed: {
-
+        fileName: function() {
+            let tem = this.fieldContent['照片名稱'].split("&")
+            return tem.length > 1 ? tem[1].replace('fileName=', '') : (tem[0] == '' ? '請上傳檔案' : tem[0])
+        }
     },
     watch: {
         //自動更新畫面
