@@ -65,9 +65,9 @@ function onLocationFound(e) {
                 }
                 else {
                   alpha = event.alpha;
-                  webkitAlpha = alpha - 90;
+                  let webkitAlpha = alpha;
                   if(!window.chrome) {
-                    webkitAlpha = alpha - 90;
+                    webkitAlpha = alpha - 270;
                   }
                 }
             
