@@ -155,8 +155,7 @@ function PostAdd(sheet1, para) {
   var fieldNames = sheet1.getRange(1, 1, 1, columnLength).getValues()[0];
   var rowNum = sheet1.getRange(rowLength + 2, 1).getValue()
   
-  
-  para['編號'] = parseInt(rowNum) + 1;
+  para['編號'] = isNaN(parseInt(rowNum)) ? 1 : (parseInt(rowNum) + 1);
     
   var values = fieldNames.map(function(value, index){
       return para[value]
