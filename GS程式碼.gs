@@ -116,8 +116,6 @@ function PostEdit(sheet1, para) {
     para['照片名稱'] = "";
   }
   
-
-  
   //時間修正
   var m = new Date(para['調查時間']);
   para['調查時間'] = m.getFullYear() +"/"+ (m.getMonth()+1) +"/"+ m.getDate() + " " + m.getHours() + ":" + m.getMinutes() + ":" + m.getSeconds();
