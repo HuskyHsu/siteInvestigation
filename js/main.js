@@ -242,6 +242,35 @@ axios({
 
 });
 
+//取得圖資
+axios({
+    method: 'get',
+    url: `${URL}?${spreadsheets}&method=getMapData`,
+    headers: {
+        'Content-Type': 'application/x-www-form-urlencoded'
+    }
+}).then(function (response) {
+
+    let mapData = response.data
+
+    mapData.forEach(function (element) {
+
+        let onEachFeature = (function (showName) {
+            return function (feature, layer) {
+                if (feature.properties && feature.properties[showName]) {
+                    layer.bindPopup(feature.properties[showName]);
+                }
+            }
+        })(element.showName);
+
+        L.geoJSON(element.geojson, {
+            onEachFeature: onEachFeature,
+            style: element.style
+        }).addTo(map);
+
+    });
+});
+
 //更新數據
 function getExistingData() {
     axios({

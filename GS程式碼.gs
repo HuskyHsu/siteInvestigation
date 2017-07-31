@@ -15,6 +15,9 @@ function doGet(e) {
   else if(method == "getExistingData"){
     return getExistingData(sheet1)
   }
+  else if(method == "getMapData"){
+    return getMapData(SpreadSheet)
+  }
   else {
     return ContentService.createTextOutput(JSON.stringify(para)).setMimeType(ContentService.MimeType.JSON)
 //    return ContentService.createTextOutput("請輸入參數");
@@ -91,6 +94,31 @@ function getExistingData(sheet1) {
   
 }
 
+//取得圖資資料
+function getMapData(SpreadSheet) {
+  
+  var sheet1 = SpreadSheet.getSheetByName('圖資');
+
+  var rowLength = sheet1.getLastRow() - 1; // 列數
+  if (rowLength == 0) {
+    return ContentService.createTextOutput(JSON.stringify([])).setMimeType(ContentService.MimeType.JSON)
+  }
+  var columnLength = sheet1.getLastColumn(); // 欄數
+  var allData = sheet1.getRange(2, 1, rowLength, columnLength).getValues();
+//  var fieldNames = sheet1.getRange(1, 1, 1, columnLength).getValues()[0];
+  
+  var returnData = allData.map(function(value, index){
+    return {
+      name: value[0],
+      geojson: JSON.parse(value[1]),
+      showName: value[2],
+      style: JSON.parse(value[3])
+    }
+  })
+  
+  return ContentService.createTextOutput(JSON.stringify(returnData)).setMimeType(ContentService.MimeType.JSON)
+}
+
 //修改原有資料
 function PostEdit(sheet1, para) {
   
@@ -115,6 +143,8 @@ function PostEdit(sheet1, para) {
   } else {
     para['照片名稱'] = "";
   }
+  
+
   
   //時間修正
   var m = new Date(para['調查時間']);
