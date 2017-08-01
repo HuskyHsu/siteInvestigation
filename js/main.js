@@ -195,8 +195,6 @@ var app = new Vue({
                         app.fieldContent = i;
                         map.setView(e.target.getLatLng(), 16);
 
-                        console.log(ExistingDatalayerGroup);
-
                         ExistingDatalayerGroup.eachLayer(function(Layer) {
                             Layer._icon.classList.remove('focusMarker');
                         })
