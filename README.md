@@ -1,4 +1,4 @@
-# 自由設計野外調查google表單
+# 自由設計野外調查作業平台
 
 [Web Site](https://huskyhsu.github.io/siteInvestigation/index.html)
 
@@ -80,7 +80,7 @@ huskyhsu.github.io/siteInvestigation/index.html?spreadsheetsID=[google試算表I
 
 ![](http://i.imgur.com/gYi17Wo.jpg)
 
-### 未完工能
+### 未完功能
 - [ ] 距離量測
 - [ ] 建立線面資料
 - [ ] 教學簡報(?!
