@@ -56,7 +56,7 @@ div.leaflet-control > p {
     font-size: 32px;
     top: calc( 50% - 24px );
     right: calc( 50% - 16px );
-    z-index: 9999;
+	z-index: 9999;
 }
 
 .leaflet-control-custom{

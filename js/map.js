@@ -163,3 +163,14 @@ map.on("moveend", function () {
 let centerMarker = L.DomUtil.create('div', 'centerMarker');
 centerMarker.textContent = "＋"
 document.getElementById('map').appendChild(centerMarker);
+
+map.on('baselayerchange', function (event) {
+
+    if (event.name == 'Google地圖'){
+        centerMarker.style.color = '#000000'
+    }
+    else if(event.name == 'Google衛星影像'){
+        centerMarker.style.color = '#FFFFFF'
+    }
+
+});
