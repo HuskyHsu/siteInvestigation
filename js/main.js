@@ -188,16 +188,24 @@ var app = new Vue({
 
                 let googleNavigation = `https://www.google.com.tw/maps/dir/${i["緯度"]},${i['經度']}/${this.GPSLocation.lat},${this.GPSLocation.lng}/@24,120.5,10z/data=!3m1!4b1!4m2!4m1!3e0`;
 
-                
                 let point = L.marker([i["緯度"], i['經度']])
                     .bindPopup(`編號：${i["編號"]}<br><a href=${googleNavigation} target="_blank">google導航</a>`)
                     // .on('click', onPointClick)
-                    .addTo(ExistingDatalayerGroup)
                     .on('click', function clickZoom(e) {
-                        app.fieldContent = i
+                        app.fieldContent = i;
                         map.setView(e.target.getLatLng(), 16);
-                    });
+
+                        console.log(ExistingDatalayerGroup);
+
+                        ExistingDatalayerGroup.eachLayer(function(Layer) {
+                            Layer._icon.classList.remove('focusMarker');
+                        })
+
+                        e.target._icon.classList.add('focusMarker');
+                    })
+                    .addTo(ExistingDatalayerGroup);
       
+
                 if (i["已調查"]) {
                     point._icon.classList.add('sepia');
                 }
