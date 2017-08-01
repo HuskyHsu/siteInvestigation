@@ -110,9 +110,9 @@ function getMapData(SpreadSheet) {
   var returnData = allData.map(function(value, index){
     return {
       name: value[0],
-      geojson: JSON.parse(value[1]),
+      geojson: JSON.parse(value[1]).features,
       showName: value[2],
-      style: JSON.parse(value[3])
+      style: {color:value[3], fillColor:value[4]}
     }
   })
   
