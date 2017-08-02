@@ -1,6 +1,9 @@
 # 自由設計野外調查作業平台
 
-[Web Site](https://huskyhsu.github.io/siteInvestigation/index.html)
+* [Web Site](https://huskyhsu.github.io/siteInvestigation/index.html)
+* [Web Site(Mobile)](https://huskyhsu.github.io/siteInvestigation/index_es5.html)
+
+> 手機版本需使用較舊的語法提升相容性，建議畫面出不來的可以採用第二個連結
 
 ![](https://raw.githubusercontent.com/HuskyHsu/siteInvestigation/master/demo/cover.png)
 
