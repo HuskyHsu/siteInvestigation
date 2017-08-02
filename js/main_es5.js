@@ -138,10 +138,8 @@ var app = new Vue({
         deleteThis: function deleteThis() {
 
             var deleteID = this.fieldContent['編號'];
-            var queryStr = spreadsheets + '&method=PostDelete&DeleteID=' + encodeURIComponent(deleteID
-
-                //Axios
-            );
+            var queryStr = spreadsheets + '&method=PostDelete&DeleteID=' + encodeURIComponent(deleteID);
+            //Axios
             axios({
                 method: 'post',
                 url: URL,
@@ -227,6 +225,7 @@ var app = new Vue({
 });
 
 //取的欄位
+alert('我要去要欄位資料囉');
 axios({
     method: 'get',
     url: URL + '?' + spreadsheets + '&method=getFieldNames',
@@ -234,6 +233,8 @@ axios({
         'Content-Type': 'application/x-www-form-urlencoded'
     }
 }).then(function (response) {
+
+    alert('成功取得欄位資料');
 
     var fields = response.data;
     app.fields = fields;
@@ -281,6 +282,9 @@ axios({
 
 //更新數據
 function getExistingData() {
+
+    alert('我要去要資料囉');
+
     axios({
         method: 'get',
         url: URL + '?' + spreadsheets + '&method=getExistingData',
@@ -289,6 +293,7 @@ function getExistingData() {
         }
     }).then(function (response) {
 
+        alert('資料有回來囉~~~');
         response.data.forEach(function (value, index) {
             response.data[index]['調查時間'] = new Date(value['調查時間']);
         });
