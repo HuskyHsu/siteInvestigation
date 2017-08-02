@@ -4,9 +4,16 @@ var URLquery = window.location.search;
 
 URLquery = URLquery.split('&');
 
-var spreadsheetsID = encodeURIComponent(URLquery[0].replace('spreadsheetsID=', ''));
-var spreadsheetsName = encodeURIComponent(URLquery[0].replace('spreadsheetsName=', ''));
-var driveFolderID = encodeURIComponent(URLquery[0].replace('driveFolderID=', ''));
+if (URLquery.length > 1) {
+    var spreadsheetsID = encodeURIComponent(URLquery[0].replace('?spreadsheetsID=', ''));
+    var spreadsheetsName = URLquery[1].replace('spreadsheetsName=', '');
+    var driveFolderID = encodeURIComponent(URLquery[2].replace('driveFolderID=', ''));
+}
+else {
+    var spreadsheetsID = "";
+    var spreadsheetsName = "";
+    var driveFolderID = "";
+}
 
 var errCount = 0;
 
@@ -14,19 +21,19 @@ alert(spreadsheetsID);
 alert(spreadsheetsName);
 alert(driveFolderID);
 
-if (spreadsheetsID == 'null') {
+if (spreadsheetsID == '') {
     spreadsheetsID = prompt("請提供google算表ID", "1AvxWdDXf4xmV8sW9to9HspmcgsRoRUfhYRZks6-iEdE");
     spreadsheetsID = encodeURIComponent(spreadsheetsID);
     errCount += 1;
 }
 
-if (spreadsheetsName == 'null') {
+if (spreadsheetsName == '') {
     spreadsheetsName = prompt("請提供工作表名稱", "工作表1");
-    spreadsheetsName = encodeURIComponent(spreadsheetsName);
+    spreadsheetsName = spreadsheetsName;
     errCount += 1;
 }
 
-if (driveFolderID == 'null') {
+if (driveFolderID == '') {
     driveFolderID = prompt("請提供Google drive ID", "0BzccTlxkvzijX3hpcW10N3BhYUE");
     driveFolderID = encodeURIComponent(driveFolderID);
     errCount += 1;
