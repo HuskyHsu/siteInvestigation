@@ -1,10 +1,18 @@
 'use strict';
 
-var spreadsheetsID = encodeURIComponent(new URLSearchParams(window.location.search).get('spreadsheetsID'));
-var spreadsheetsName = encodeURIComponent(new URLSearchParams(window.location.search).get('spreadsheetsName'));
-var driveFolderID = encodeURIComponent(new URLSearchParams(window.location.search).get('driveFolderID'));
+var URLquery = window.location.search;
+
+URLquery = URLquery.split('&');
+
+var spreadsheetsID = encodeURIComponent(URLquery[0].replace('spreadsheetsID=', ''));
+var spreadsheetsName = encodeURIComponent(URLquery[0].replace('spreadsheetsName=', ''));
+var driveFolderID = encodeURIComponent(URLquery[0].replace('driveFolderID=', ''));
 
 var errCount = 0;
+
+alert(spreadsheetsID);
+alert(spreadsheetsName);
+alert(driveFolderID);
 
 if (spreadsheetsID == 'null') {
     spreadsheetsID = prompt("請提供google算表ID", "1AvxWdDXf4xmV8sW9to9HspmcgsRoRUfhYRZks6-iEdE");
