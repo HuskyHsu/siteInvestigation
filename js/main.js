@@ -186,7 +186,8 @@ var app = new Vue({
 
             this.ExistingData.forEach(i => {
 
-                let googleNavigation = `https://www.google.com.tw/maps/dir/${i["緯度"]},${i['經度']}/${this.GPSLocation.lat},${this.GPSLocation.lng}/@24,120.5,10z/data=!3m1!4b1!4m2!4m1!3e0`;
+                // let googleNavigation = `https://www.google.com.tw/maps/dir/${i["緯度"]},${i['經度']}/${this.GPSLocation.lat},${this.GPSLocation.lng}/@24,120.5,10z/data=!3m1!4b1!4m2!4m1!3e0`;
+                let googleNavigation = navigation(i["緯度"] + ',' + i["經度"], this.GPSLocation.lat + ',' + this.GPSLocation.lng)
 
                 let point = L.marker([i["緯度"], i['經度']])
                     .bindPopup(`編號：${i["編號"]}<br><a href=${googleNavigation} target="_blank">google導航</a>`)
@@ -305,4 +306,20 @@ function WGS84toTWD97(params) {
     
     return {x: newLoction[0].toFixed(2), y: newLoction[1].toFixed(2)}
     
+}
+
+//導航連結
+function navigation(LngLat, GPSLocation) {
+	if (navigator.userAgent.match(/android/i)) {
+		return "google.navigation:q=" + LngLat + "&mode=d"
+	} else if(GPSLocation == 'undefined,undefined') {
+        return "http://maps.google.com?q=" + LngLat
+    } else {
+		if (navigator.userAgent.match(/(iphone|ipod|ipad);?/i)) {
+			return "comgooglemaps://?saddr=&daddr=" + LngLat + "&directionsmode=Driving&zoom=15"
+		} else {
+            return 'https://www.google.com.tw/maps/dir/' + LngLat + '/' + GPSLocation + '/@24,120.5,10z/data=!3m1!4b1!4m2!4m1!3e0'           
+		}
+	};
+	return ""
 }
