@@ -1,0 +1,136 @@
+body {
+    padding: 0;
+    margin: 0;
+    font-family:'Microsoft JhengHei';
+}
+
+html, body {
+    height: 100vh;
+    width: 100vw;
+    overflow-y: auto;
+}
+
+#map {
+    height: 50vh;
+    width: 100vw;
+}
+
+.gray {
+    filter: grayscale(100%);
+}
+
+.sepia {
+    filter: sepia(1);
+}
+
+.focusMarker {
+    filter: hue-rotate(90deg);
+}
+
+.fields {
+     margin: 2px; 
+}
+
+ /* .fields input {
+    width: 70VW;
+}  */
+
+
+
+div.leaflet-control > p {
+    background-color: white;
+    font-size: 0.75em;
+    padding: 0.2em;
+    margin: 0;
+}
+
+#app {
+    width: 100vw; 
+    max-height: 30vh;
+    overflow: auto;
+    padding: 10px;
+}
+
+.centerMarker {
+    position: absolute;
+    font-size: 32px;
+    top: calc( 50% - 24px );
+    right: calc( 50% - 16px );
+	z-index: 9999;
+}
+
+.leaflet-control-custom{
+    cursor: pointer;
+}
+
+.inputfile {
+		width: 0.1px;
+		height: 0.1px;
+		opacity: 0;
+		overflow: hidden;
+		
+		z-index: -1;
+    margin-top:10px;
+}
+.inputfile + label {
+	 
+		/* 20px */
+		width: 50%;
+		text-overflow: ellipsis;
+		white-space: nowrap;
+		cursor: pointer;
+		display: inline-block;
+		overflow: hidden;
+		padding-left: 0.75em;
+		padding-right: 0.75em;
+		border: 1px solid #dbdbdb;
+		height: 2.285em;
+		box-shadow: inset 0 1px 2px rgba(10, 10, 10, 0.1);
+		line-height: 1.5rem;
+		border-radius: 3px;
+		padding-top: 0.3em;
+    
+		/* 10px 20px */
+}
+.no-js .inputfile + label {
+		display: none;
+}
+.inputfile:focus + label,
+.inputfile.has-focus + label {
+		border-color: #00d1b2;
+}
+.inputfile + label * {
+		/* pointer-events: none; */
+        /* in case of FastClick lib use */
+}
+.inputfile + label svg {
+		width: 1em; 
+		height: 1em;
+		line-height: 1.5;
+		vertical-align: middle;
+		margin-top: -0.25em;
+		/* 4px */
+		/* margin-right: 0.25em; */
+		/* 4px */		 
+}
+.inputfile-2 + label {
+		border: 1px solid #dbdbdb;
+}
+.inputfile-2:focus + label,
+.inputfile-2.has-focus + label,
+.inputfile-2 + label:hover {
+		border-color: #00d1b2;
+}
+
+
+.leaflet-marker-icon {
+  transform-origin: 50% 100%;
+  -moz-transform-origin: 50% 100%;
+  -webkit-transform-origin: 50% 100%;
+}
+
+
+/* #compass{
+  background-size:cover;
+
+} */
