@@ -89,3 +89,4 @@ huskyhsu.github.io/siteInvestigation/index.html?spreadsheetsID=[google試算表I
 - [ ] 自訂顯示名稱(編號)
 - [ ] 地圖上顯示點名稱
 - [ ] 照片CRUD
+- [ ] 地籍座標兩者轉換
