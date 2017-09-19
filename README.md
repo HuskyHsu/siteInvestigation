@@ -85,8 +85,9 @@ huskyhsu.github.io/siteInvestigation/index.html?spreadsheetsID=[google試算表I
 
 ### 未完功能
 - [ ] 距離量測
-- [ ] 建立線面資料
+- [ ] 編修線面資料，新增點資料(可開關顯示否)
 - [ ] 自訂顯示名稱(編號)
 - [ ] 地圖上顯示點名稱
 - [ ] 照片CRUD
 - [ ] 地籍座標兩者轉換
+- [ ] UI UX改善，IOS環境優化
