@@ -1,35 +1,24 @@
 'use strict';
 
-var URLquery = window.location.search;
-
-URLquery = URLquery.split('&');
-
-if (URLquery.length > 1) {
-    var spreadsheetsID = encodeURIComponent(URLquery[0].replace('?spreadsheetsID=', ''));
-    var spreadsheetsName = URLquery[1].replace('spreadsheetsName=', '');
-    var driveFolderID = encodeURIComponent(URLquery[2].replace('driveFolderID=', ''));
-}
-else {
-    var spreadsheetsID = "";
-    var spreadsheetsName = "";
-    var driveFolderID = "";
-}
+var spreadsheetsID = encodeURIComponent(new URLSearchParams(window.location.search).get('spreadsheetsID'));
+var spreadsheetsName = encodeURIComponent(new URLSearchParams(window.location.search).get('spreadsheetsName'));
+var driveFolderID = encodeURIComponent(new URLSearchParams(window.location.search).get('driveFolderID'));
 
 var errCount = 0;
 
-if (spreadsheetsID == '') {
+if (spreadsheetsID == 'null') {
     spreadsheetsID = prompt("請提供google算表ID", "1AvxWdDXf4xmV8sW9to9HspmcgsRoRUfhYRZks6-iEdE");
     spreadsheetsID = encodeURIComponent(spreadsheetsID);
     errCount += 1;
 }
 
-if (spreadsheetsName == '') {
+if (spreadsheetsName == 'null') {
     spreadsheetsName = prompt("請提供工作表名稱", "工作表1");
-    spreadsheetsName = spreadsheetsName;
+    spreadsheetsName = encodeURIComponent(spreadsheetsName);
     errCount += 1;
 }
 
-if (driveFolderID == '') {
+if (driveFolderID == 'null') {
     driveFolderID = prompt("請提供Google drive ID", "0BzccTlxkvzijX3hpcW10N3BhYUE");
     driveFolderID = encodeURIComponent(driveFolderID);
     errCount += 1;
@@ -105,10 +94,7 @@ var app = new Vue({
 
             this.fieldContent['調查時間'] = m.getFullYear() + "/" + (m.getMonth() + 1) + "/" + m.getDate() + " " + m.getHours() + ":" + m.getMinutes() + ":" + m.getSeconds() + " GMT+0800";
 
-            var TWD97 = WGS84toTWD97({
-                lng: this.fieldContent['經度'],
-                lat: this.fieldContent['緯度']
-            });
+            var TWD97 = WGS84toTWD97({ lng: this.fieldContent['經度'], lat: this.fieldContent['緯度'] });
             this.fieldContent['TWD97_X'] = TWD97.x;
             this.fieldContent['TWD97_Y'] = TWD97.y;
 
@@ -150,6 +136,7 @@ var app = new Vue({
 
             var deleteID = this.fieldContent['編號'];
             var queryStr = spreadsheets + '&method=PostDelete&DeleteID=' + encodeURIComponent(deleteID);
+
             //Axios
             axios({
                 method: 'post',
@@ -204,11 +191,11 @@ var app = new Vue({
                 // let googleNavigation = `https://www.google.com.tw/maps/dir/${i["緯度"]},${i['經度']}/${this.GPSLocation.lat},${this.GPSLocation.lng}/@24,120.5,10z/data=!3m1!4b1!4m2!4m1!3e0`;
                 var googleNavigation = navigation(i["緯度"] + ',' + i["經度"], _this4.GPSLocation.lat + ',' + _this4.GPSLocation.lng);
 
-                var point = L.marker([i["緯度"], i['經度']]).bindPopup('\u7DE8\u865F\uFF1A' + i["編號"] + '<br><a href=' + googleNavigation + ' target="_blank">google\u5C0E\u822A</a>'
-                    // .on('click', onPointClick)
-                ).on('click', function clickZoom(e) {
+                var point = L.marker([i["緯度"], i['經度']]).bindPopup('\u7DE8\u865F\uFF1A' + i["編號"] + '<br><a href=' + googleNavigation + ' target="_blank">google\u5C0E\u822A</a>')
+                // .on('click', onPointClick)
+                .on('click', function clickZoom(e) {
                     app.fieldContent = i;
-                    map.setView(e.target.getLatLng(), 16);
+                    map.setView(e.target.getLatLng(), 18);
 
                     ExistingDatalayerGroup.eachLayer(function (Layer) {
                         Layer._icon.classList.remove('focusMarker');
@@ -281,16 +268,34 @@ axios({
             };
         }(element.showName);
 
-        L.geoJSON(element.geojson, {
-            onEachFeature: onEachFeature,
-            style: element.style
-        }).addTo(map);
+        if (element.geojson[0].geometry.type !== "Point") {
+            L.geoJSON(element.geojson, {
+                onEachFeature: onEachFeature,
+                style: element.style
+            }).addTo(map);
+        } else {
+
+            var geojsonMarkerOptions = {
+                radius: 8,
+                fillColor: element.style.fillColor,
+                color: element.style.color,
+                weight: 1,
+                opacity: 0.7,
+                fillOpacity: 0.8
+            };
+
+            L.geoJSON(element.geojson, {
+                onEachFeature: onEachFeature,
+                pointToLayer: function pointToLayer(feature, latlng) {
+                    return L.circleMarker(latlng, geojsonMarkerOptions);
+                }
+            }).addTo(map);
+        }
     });
 });
 
 //更新數據
 function getExistingData() {
-
     axios({
         method: 'get',
         url: URL + '?' + spreadsheets + '&method=getExistingData',
@@ -298,6 +303,7 @@ function getExistingData() {
             'Content-Type': 'application/x-www-form-urlencoded'
         }
     }).then(function (response) {
+
         response.data.forEach(function (value, index) {
             response.data[index]['調查時間'] = new Date(value['調查時間']);
         });
@@ -314,10 +320,7 @@ function WGS84toTWD97(params) {
 
     var newLoction = proj4(WGS84, TWD97, [params.lng, params.lat]);
 
-    return {
-        x: newLoction[0].toFixed(2),
-        y: newLoction[1].toFixed(2)
-    };
+    return { x: newLoction[0].toFixed(2), y: newLoction[1].toFixed(2) };
 }
 
 //導航連結
