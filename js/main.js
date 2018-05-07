@@ -270,10 +270,29 @@ axios({
             }
         })(element.showName);
 
-        L.geoJSON(element.geojson, {
-            onEachFeature: onEachFeature,
-            style: element.style
-        }).addTo(map);
+        if (element.geojson[0].geometry.type !== "Point"){
+            L.geoJSON(element.geojson, {
+                onEachFeature: onEachFeature,
+                style: element.style
+            }).addTo(map);
+        }
+        else {
+
+            var geojsonMarkerOptions = {
+                radius: 8,
+                fillColor: element.style.fillColor,
+                color: element.style.color,
+                weight: 1,
+                opacity: 0.7,
+                fillOpacity: 0.8
+            };
+            
+            L.geoJSON(element.geojson, {
+                pointToLayer: function (feature, latlng) {
+                    return L.circleMarker(latlng, geojsonMarkerOptions);
+                }
+            }).addTo(map);
+        }
 
     });
 });
