@@ -111,6 +111,26 @@ let Update = L.Control.extend({
 });
 map.addControl(new Update());
 
+let fullScreen = L.Control.extend({
+
+    options: {position: 'topright'},
+
+    onAdd: function (map) {
+        let container = L.DomUtil.create('div', 'leaflet-bar leaflet-control leaflet-control-custom');
+
+        container.style.backgroundColor = 'white';
+        container.style.backgroundImage = "url(png/full-screen.png)";
+        container.style.backgroundSize = "48px 48px";
+        container.style.width = '48px';
+        container.style.height = '48px';
+
+        container.onclick = function () {screenfull.toggle(document.getElementById('map'));}
+
+        return container;
+    }
+});
+map.addControl(new fullScreen());
+
 // let Compass = L.Control.extend({
 
 //     options: {position: 'topright'},
