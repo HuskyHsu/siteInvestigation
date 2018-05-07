@@ -194,7 +194,7 @@ var app = new Vue({
                     // .on('click', onPointClick)
                     .on('click', function clickZoom(e) {
                         app.fieldContent = i;
-                        map.setView(e.target.getLatLng(), 16);
+                        map.setView(e.target.getLatLng(), 18);
 
                         ExistingDatalayerGroup.eachLayer(function(Layer) {
                             Layer._icon.classList.remove('focusMarker');
