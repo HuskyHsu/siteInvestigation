@@ -275,6 +275,7 @@ axios({
                 onEachFeature: onEachFeature,
                 style: element.style
             }).addTo(map);
+
         }
         else {
 
@@ -288,6 +289,7 @@ axios({
             };
             
             L.geoJSON(element.geojson, {
+                onEachFeature: onEachFeature,
                 pointToLayer: function (feature, latlng) {
                     return L.circleMarker(latlng, geojsonMarkerOptions);
                 }
