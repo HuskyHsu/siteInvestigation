@@ -46,7 +46,7 @@ div.leaflet-control > p {
 
 #app {
     width: 100vw; 
-    max-height: 50vh;
+    /* max-height: 50vh; */
     overflow: auto;
 	padding: 10px;
 	height: 50vh;
