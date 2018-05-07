@@ -168,7 +168,7 @@ var app = new Vue({
         },
         toggle_app_full: function (){
             
-            if (!full){
+            if (!this.appFull){
                 document.getElementById('app').style.height = '100vh';
             }else{
                 document.getElementById('app').style.height = '50vh';
