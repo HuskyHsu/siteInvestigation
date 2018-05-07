@@ -105,6 +105,72 @@ var Update = L.Control.extend({
 });
 map.addControl(new Update());
 
+var fullScreen = L.Control.extend({
+
+    options: { position: 'topright' },
+
+    onAdd: function onAdd(map) {
+        var container = L.DomUtil.create('div', 'leaflet-bar leaflet-control leaflet-control-custom');
+
+        container.style.backgroundColor = 'white';
+        container.style.backgroundImage = "url(png/full-screen.png)";
+        container.style.backgroundSize = "48px 48px";
+        container.style.width = '48px';
+        container.style.height = '48px';
+
+        container.onclick = function () {
+            screenfull.toggle(document.getElementById('map'));
+        };
+
+        return container;
+    }
+});
+map.addControl(new fullScreen());
+
+// let Compass = L.Control.extend({
+
+//     options: {position: 'topright'},
+
+//     onAdd: function (map) {
+//         let compass = L.DomUtil.create('div', 'compass leaflet-bar leaflet-control leaflet-control-custom');
+
+//         compass.style.backgroundColor = 'white';
+//         compass.style.backgroundImage = "url(png/compass.png)";
+//         compass.style.backgroundSize = "40px 40px";
+//         compass.style.width = '44px';
+//         compass.style.height = '44px';
+
+//         if(window.DeviceOrientationEvent) {
+
+//           window.addEventListener('deviceorientation', function(event) {
+//             let alpha;
+//             let webkitAlpha;
+//             //     判斷是否為 iOS 裝置
+//             if(event.webkitCompassHeading) {
+//               alpha = event.webkitCompassHeading; // iOS 裝置必須使用 event.webkitCompassHeading
+//               compass.style.WebkitTransform = 'rotate(-' + alpha + 'deg)';
+//               show.innerHTML = alpha;
+//             }
+//             else {
+//               alpha = event.alpha;
+//               webkitAlpha = alpha;
+//               if(window.chrome) {
+//                 webkitAlpha = alpha;
+//               }
+//             }
+
+//             compass.style.Transform = 'rotate(' + alpha + 'deg)';
+//             compass.style.WebkitTransform = 'rotate(-'+ webkitAlpha + 'deg)';
+//             compass.style.MozTransform = 'rotate(-' + alpha + 'deg)';
+//             }, false);
+//         }else{
+//           document.querySelector('body').innerHTML = '你的瀏覽器不支援喔';
+//         }
+
+//         return compass;
+//     }
+// });
+// map.addControl(new Compass());
 
 map.on("moveend", function () {
     map.mapCenterLocation.textContent = '\u5730\u5716\u4E2D\u5FC3\uFF1ALon:' + map.getCenter().lng.toFixed(6) + ', Lat:' + map.getCenter().lat.toFixed(6);

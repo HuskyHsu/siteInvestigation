@@ -344,7 +344,3 @@ function navigation(LngLat, GPSLocation) {
 	};
 	return ""
 }
-
-setTimeout(function(){ 
-    screenfull.toggle(); 
-}, 3000);
