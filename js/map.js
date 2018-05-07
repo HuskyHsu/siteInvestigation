@@ -111,6 +111,8 @@ let Update = L.Control.extend({
 });
 map.addControl(new Update());
 
+let full = false;
+
 let fullScreen = L.Control.extend({
 
     options: {position: 'topright'},
@@ -124,7 +126,19 @@ let fullScreen = L.Control.extend({
         container.style.width = '48px';
         container.style.height = '48px';
 
-        container.onclick = function () {screenfull.toggle(document.getElementById('map'));}
+        container.onclick = function () {
+
+            if (!full){
+                document.getElementById('map').style.height = '100vh';
+                container.style.backgroundImage = "url(png/Exit-full-screen.png)";
+            }else{
+                document.getElementById('map').style.height = '50vh';
+                container.style.backgroundImage = "url(png/full-screen.png)";
+            }
+
+            full = !full;
+            screenfull.toggle(document.getElementById('map'));
+        }
 
         return container;
     }

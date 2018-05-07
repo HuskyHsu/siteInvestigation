@@ -11,7 +11,7 @@ html, body {
 }
 
 #map {
-    height: 70vh;
+    height: 50vh;
     width: 100vw;
 }
 
@@ -46,7 +46,7 @@ div.leaflet-control > p {
 
 #app {
     width: 100vw; 
-    max-height: 30vh;
+    /* max-height: 30vh; */
     overflow: auto;
 	padding: 10px;
 	height: 50vh;

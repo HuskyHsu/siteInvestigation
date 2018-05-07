@@ -105,6 +105,8 @@ var Update = L.Control.extend({
 });
 map.addControl(new Update());
 
+var full = false;
+
 var fullScreen = L.Control.extend({
 
     options: { position: 'topright' },
@@ -119,6 +121,16 @@ var fullScreen = L.Control.extend({
         container.style.height = '48px';
 
         container.onclick = function () {
+
+            if (!full) {
+                document.getElementById('map').style.height = '100vh';
+                container.style.backgroundImage = "url(png/Exit-full-screen.png)";
+            } else {
+                document.getElementById('map').style.height = '50vh';
+                container.style.backgroundImage = "url(png/full-screen.png)";
+            }
+
+            full = !full;
             screenfull.toggle(document.getElementById('map'));
         };
 
