@@ -39,6 +39,7 @@ var app = new Vue({
         fieldContent: {},
         ExistingData: getExistingData(),
         GPSLocation: {},
+        appFull: false,
         picked: 'GPS'
     },
     methods: {
@@ -164,6 +165,17 @@ var app = new Vue({
                 _this3.fieldContent['照片名稱'] = 'driveFolderID=' + driveFolderID + '&fileName=' + fileName + '&fileBase64Code=' + fileBase64Code;
             };
             fr.readAsDataURL(file[0]);
+        },
+        toggle_app_full: function toggle_app_full() {
+
+            if (!full) {
+                document.getElementById('app').style.height = '100vh';
+            } else {
+                document.getElementById('app').style.height = '50vh';
+            }
+
+            this.appFull = !this.appFull;
+            screenfull.toggle(document.getElementById('app'));
         }
     },
     computed: {
